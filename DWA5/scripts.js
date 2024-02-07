@@ -1,5 +1,4 @@
 // scripts.js
-
 // @ts-check
 
 const form = document.querySelector("[data-form]");
