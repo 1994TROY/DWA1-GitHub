@@ -1,5 +1,5 @@
 /**
- * Changes made to the code to Implement SOLID Principles have been explained in the "info.md" file
+ * encapsulated abstraction of the book preview has been set in the info.md file
  */
 
 // @ts-check
@@ -10,26 +10,31 @@ let page = 1;
 let matches = books;
 
 /**
- * Create a preview button element.
+ * An encapsulated abstraction of the book preview using a single factory function as requested in DWA8
+ *
  * @param {Object} book - The book object containing author, id, image, and title.
- * @returns {HTMLElement} - The created button element.
+ * @returns {HTMLElement} - The created book preview element.
  */
-function createPreviewButton({ author, id, image, title }) {                                
+
+function createBookPreview(book) {
     const element = document.createElement('button');
     element.classList = 'preview';
-    element.setAttribute('data-preview', id);
+    element.setAttribute('data-preview', book.id);
 
     element.innerHTML = `
         <img
             class="preview__image"
-            src="${image}"
+            src="${book.image}"
         />
         
         <div class="preview__info">
-            <h3 class="preview__title">${title}</h3>
-            <div class="preview__author">${authors[author]}</div>
+            <h3 class="preview__title">${book.title}</h3>
+            <div class="preview__author">${authors[book.author]}</div>
         </div>
     `;
+
+    // Add event listener for click event
+    element.addEventListener('click', handlePreviewItemClick);
 
     return element;
 }
@@ -102,7 +107,7 @@ const starting = document.createDocumentFragment();
 
 // Display the first page of books
 for (const book of matches.slice(0, BOOKS_PER_PAGE)) {
-    const element = createPreviewButton(book);
+    const element = createBookPreview(book);
     starting.appendChild(element);
 }
 
@@ -299,7 +304,7 @@ function handleSearch(event) {
     const newItems = document.createDocumentFragment();
     
     for (const { author, id, image, title } of result.slice(0, BOOKS_PER_PAGE)) {
-        const element = createPreviewButton({ author, id, image, title });
+        const element = createBookPreview({ author, id, image, title });
         newItems.appendChild(element);
     }
     
@@ -318,7 +323,7 @@ function handleShowMore() {
     const endIdx = (page + 1) * BOOKS_PER_PAGE;
 
     for (const { author, id, image, title } of matches.slice(startIdx, endIdx)) {
-        const element = createPreviewButton({ author, id, image, title });
+        const element = createBookPreview({ author, id, image, title });
         fragment.appendChild(element);
     }
 

@@ -2,10 +2,12 @@
 # Table of content
 - [Features](#features)
 - [Usage](#usage)
-- [DWA7 Changes Made](#dwa7-changes-made)
-  - [Changes Made to Implement SOLID Principles in setTheme Function:](#changes-made-to-implement-solid-principles-in-settheme-function)
-  - [Changes Made to Implement SOLID Principles in toggleOverlay Function:](#changes-made-to-implement-solid-principles-in-toggleoverlay-function)
-  - [Changes Made to Implement SOLID Principles in handlePreviewItemClick Function:](#changes-made-to-implement-solid-principles-in-handlepreviewitemclick-function)
+- [DWA8 Changes Made](#dwa8-changes-made)
+  - [Changes Made to encapsulated abstraction of the book preview:](#changes-made-to-encapsulated-abstraction-of-the-book-preview)
+  - [Encapsulated Abstraction of Book Preview](#encapsulated-abstraction-of-book-preview)
+- [New vs Old Code](#new-vs-old-code)
+
+
 
 <!-- omit in toc -->
 # My Book Catalog App
@@ -20,32 +22,64 @@ Welcome to the My Book Catalog App! This app allows you to search and browse a c
 
 
 
-
 ## Usage
 1. Clone the repository to your local machine:
 
 
-## DWA7 Changes Made
+## DWA8 Changes Made 
     
-### Changes Made to Implement SOLID Principles in setTheme Function:
+### Changes Made to encapsulated abstraction of the book preview:
 
-1. Single Responsibility Principle (SRP):
-   - Simplified setTheme function to only handle determining the current color scheme.
-   - Moved the actual theme application logic into separate classes named DarkThemeApplier and LightThemeApplier. Each class now handles applying the theme based on the color scheme.
-   - This change ensures that each part of the code has a clear and single responsibility: setTheme figures out the color scheme, while the theme appliers apply the appropriate theme.
+   This file provides an overview of the changes made to the codebase, explaining the rationale behind each modification and highlighting the implementation of an encapsulated abstraction for the book preview functionality.
 
-2. Open/Closed Principle (OCP):
-   - Made setTheme function open for extension but closed for modification.
-   - Created a common interface called ThemeApplier for theme appliers and implemented specific theme appliers like DarkThemeApplier and LightThemeApplier that follow this interface.
-   - Now, new theme appliers can be added without changing the existing code. This promotes flexibility and makes it easier to maintain and extend the codebase.
-
-3. Liskov Substitution Principle (LSP):
-   - Ensured that DarkThemeApplier and LightThemeApplier classes can be substituted for their base class (ThemeApplier) without causing any issues in the program.
-  - This ensures that we can easily switch between different theme appliers without worrying about breaking anything. It makes the code more flexible and easier to work with.
+### Encapsulated Abstraction of Book Preview
+In the original version of the code, the functionality to display a preview of a book was contained within the createPreviewButton function. However, in order to follow the principle of encapsulation and to enhance the code's maintainability and reusability, a new function called createBookPreview was created. This new function serves as a single factory for generating book previews, making the code more organized and easier to manage.
 
 
-### Changes Made to Implement SOLID Principles in toggleOverlay Function:
-   - Busy with it
+## New vs Old Code
+```javascript
 
-### Changes Made to Implement SOLID Principles in handlePreviewItemClick Function:
-   - Busy with it
+New Code
+
+/**
+ * An encapsulated abstraction of the book preview using a single factory function as requested in DWA8
+ *
+ * @param {Object} book - The book object containing author, id, image, and title.
+ * @returns {HTMLElement} - The created book preview element.
+ */
+function createBookPreview(book) {
+    const element = document.createElement('button');
+    element.classList = 'preview';
+    element.setAttribute('data-preview', book.id);
+
+    element.innerHTML = `
+        <img
+            class="preview__image"
+            src="${book.image}"
+        />
+        
+        <div class="preview__info">
+            <h3 class="preview__title">${book.title}</h3>
+            <div class="preview__author">${authors[book.author]}</div>
+        </div>
+    `;
+
+    // Add event listener for click event
+    element.addEventListener('click', handlePreviewItemClick);
+
+    return element;
+}
+
+
+
+OLD CODE
+
+
+/**
+ * Create a preview button element.
+ * @param {Object} book - The book object containing author, id, image, and title.
+ * @returns {HTMLElement} - The created button element.
+ */
+function createPreviewButton({ author, id, image, title }) {
+    // Implementation details here...
+}
