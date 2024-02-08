@@ -377,3 +377,4 @@ document.querySelector('[data-settings-form]').addEventListener('submit', handle
 document.querySelector('[data-search-form]').addEventListener('submit', handleSearch);
 document.querySelector('[data-list-button]').addEventListener('click', handleShowMore);
 document.querySelector('[data-list-items]').addEventListener('click', handlePreviewItemClick);
+
