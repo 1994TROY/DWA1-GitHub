@@ -1,4 +1,4 @@
-
+// Adjust the import path as necessary
 import { authors } from './data.js';
 
 class BookPreview extends HTMLElement {
@@ -17,8 +17,6 @@ class BookPreview extends HTMLElement {
   }
 
   handlePreviewItemClick() {
-    // Implement the logic that should happen on click
-    // This might involve showing more details about the book, for example
     console.log('Preview item clicked. Implement the desired behavior here.');
   }
 }
