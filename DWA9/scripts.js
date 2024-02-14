@@ -9,35 +9,6 @@ import { books, authors, genres, BOOKS_PER_PAGE } from './data.js';
 let page = 1;
 let matches = books;
 
-/**
- * An encapsulated abstraction of the book preview using a single factory function as requested in DWA8
- *
- * @param {Object} book - The book object containing author, id, image, and title.
- * @returns {HTMLElement} - The created book preview element.
- */
-
-function createBookPreview(book) {
-    const element = document.createElement('button');
-    element.classList = 'preview';
-    element.setAttribute('data-preview', book.id);
-
-    element.innerHTML = `
-        <img
-            class="preview__image"
-            src="${book.image}"
-        />
-        
-        <div class="preview__info">
-            <h3 class="preview__title">${book.title}</h3>
-            <div class="preview__author">${authors[book.author]}</div>
-        </div>
-    `;
-
-    // Add event listener for click event
-    element.addEventListener('click', handlePreviewItemClick);
-
-    return element;
-}
 
 /**
  * Create a document fragment containing genre options.
