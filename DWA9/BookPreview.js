@@ -17,7 +17,7 @@ class BookPreview extends HTMLElement {
   }
 
   handlePreviewItemClick() {
-    console.log('Preview item clicked. Implement the desired behavior here.');
+    console.log('button has been clicked');
   }
 }
 
