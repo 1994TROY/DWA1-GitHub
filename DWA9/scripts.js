@@ -5,8 +5,7 @@
 // @ts-check
 
 import { books, authors, genres, BOOKS_PER_PAGE } from './data.js';
-import "./BookPreview.js"
-
+import "./BookPreview.js";
 let page = 1;
 let matches = books;
 
@@ -81,7 +80,7 @@ const starting = document.createDocumentFragment();
 
 // Display the first page of books
 for (const book of matches.slice(0, BOOKS_PER_PAGE)) {
-    const element = createBookPreview(book);
+    const element = document.createElement('book-preview');
     starting.appendChild(element);
 }
 
@@ -297,7 +296,7 @@ function handleShowMore() {
     const endIdx = (page + 1) * BOOKS_PER_PAGE;
 
     for (const { author, id, image, title } of matches.slice(startIdx, endIdx)) {
-        const element = createBookPreview({ author, id, image, title });
+        element.setAttribute('data-book', JSON.stringify({ id, title, author, image }));
         fragment.appendChild(element);
     }
 

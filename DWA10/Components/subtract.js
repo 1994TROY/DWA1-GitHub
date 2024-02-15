@@ -1,4 +1,4 @@
-// Assuming handleButtonClick function is defined similarly as in add-button.js
+// Assuming handleButtonClick function is defined and accessible
 
 // Decrement operation with a minimum count limit
 function decrementCounter() {
@@ -11,10 +11,16 @@ function decrementCounter() {
         displayElement.textContent = currentValue;
     }
 
-    if (currentValue === -15) {
-        subtractButton.disabled = true; // Disable the subtract button once minimum is reached
+    // Disable the subtract button and indicate maximum subtraction once -15 is reached
+    if (currentValue <= -15) {
+        subtractButton.disabled = true;
+        // Optionally, change the button text or style to indicate it's disabled due to reaching the max subtraction
+        subtractButton.textContent = "Max Subtracted";
+        subtractButton.style.backgroundColor = "#ccc";
     }
 }
 
 // Binding decrement operation to Subtract button
-handleButtonClick("subtract-btn", decrementCounter);
+document.addEventListener('DOMContentLoaded', () => {
+    handleButtonClick("subtract-btn", decrementCounter);
+});
