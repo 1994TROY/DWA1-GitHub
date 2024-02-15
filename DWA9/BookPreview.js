@@ -1,26 +1,43 @@
-// Adjust the import path as necessary
-import { authors } from './data.js';
+import { authors} from './data.js';
 
 class BookPreview extends HTMLElement {
   connectedCallback() {
     const book = JSON.parse(this.getAttribute('data-book'));
-    this.innerHTML = `
-      <button class='preview' data-preview='${book.id}'>
-        <img class="preview__image" src="${book.image}" />
-        <div class="preview__info">
-          <h3 class="preview__title">${book.title}</h3>
-          <div class="preview__author">${authors[book.author]}</div>
-        </div>
-      </button>
-    `;
-    this.querySelector('button').addEventListener('click', this.handlePreviewItemClick.bind(this));
+    const previewElement = this.createBookPreview(book);
+    this.appendChild(previewElement);
   }
 
-  handlePreviewItemClick() {
-    console.log('button has been clicked');
+  createBookPreview(book) {
+    const container = document.createElement('div');
+    container.classList.add('preview-container');
+
+    const element = document.createElement('button');
+    element.classList.add('preview');
+    element.setAttribute('data-preview', book.id);
+
+    element.innerHTML = `
+        <img
+            class="preview__image"
+            src="${book.image}"
+        />
+        
+        <div class="preview__info">
+            <h3 class="preview__title">${book.title}</h3>
+            <div class="preview__author">${authors[book.author]}</div>
+        </div>
+    `;
+
+    // Add event listener for click event
+    element.addEventListener('click', () => this.handlePreviewItemClick(book));
+
+    container.appendChild(element);
+    return container;
+  }
+
+  handlePreviewItemClick(book) {
+    console.log(`Preview for ${book.title} has been clicked`);
+    // Implement further actions here, such as opening a detailed view
   }
 }
 
 customElements.define('book-preview', BookPreview);
-
-

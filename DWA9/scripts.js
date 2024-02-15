@@ -78,14 +78,26 @@ function appendToDropdown(selector, fragment) {
 // Create a document fragment for preview buttons
 const starting = document.createDocumentFragment();
 
-// Display the first page of books
-for (const book of matches.slice(0, BOOKS_PER_PAGE)) {
-    const element = document.createElement('book-preview');
-    starting.appendChild(element);
-}
+// Ensure the DOM is fully loaded before executing the script
+document.addEventListener('DOMContentLoaded', () => {
+    // Create a document fragment to hold the book previews
+    const starting = document.createDocumentFragment();
 
-// Append preview buttons to the list items container
-document.querySelector('[data-list-items]').appendChild(starting);
+    // Loop through the first set of books defined by BOOKS_PER_PAGE
+    for (const book of matches.slice(0, BOOKS_PER_PAGE)) {
+        // Create a new 'book-preview' element for each book
+        const element = document.createElement('book-preview');
+        
+        // Set the 'data-book' attribute with the book data
+        // The book object needs to be stringified to be set as an attribute
+        element.setAttribute('data-book', JSON.stringify(book));
+        
+        // Append the 'book-preview' element to the document fragment
+        starting.appendChild(element);
+    }
+    document.querySelector('[data-list-items]').appendChild(starting);
+});
+
 
 // Create a document fragment containing genre options
 const genreHtml = createGenreOptions();
@@ -180,9 +192,6 @@ function setTheme() {
     themeElement.value = isDarkMode ? 'night' : 'day';
     themeApplier.applyDarkTheme(); // Always applying dark theme initially
 }
-
-
-
 
 
 /**
@@ -296,7 +305,8 @@ function handleShowMore() {
     const endIdx = (page + 1) * BOOKS_PER_PAGE;
 
     for (const { author, id, image, title } of matches.slice(startIdx, endIdx)) {
-        element.setAttribute('data-book', JSON.stringify({ id, title, author, image }));
+        const element = document.createElement('book-preview');
+        element.setAttribute('data-book', JSON.stringify({ author, id, image, title }));
         fragment.appendChild(element);
     }
 
@@ -338,6 +348,9 @@ function handlePreviewItemClick(event) {
 }
 
 // Add event listeners
+document.addEventListener('click', (event) => {
+    console.log('book-preview', event.target);
+});
 document.querySelector('[data-search-authors]').appendChild(authorsHtml);
 setTheme();
 updateShowMoreButton();
@@ -349,5 +362,3 @@ document.querySelector('[data-list-close]').addEventListener('click', () => togg
 document.querySelector('[data-settings-form]').addEventListener('submit', handleThemeChange);
 document.querySelector('[data-search-form]').addEventListener('submit', handleSearch);
 document.querySelector('[data-list-button]').addEventListener('click', handleShowMore);
-
-
