@@ -1,14 +1,14 @@
-// Abstraction for handling button click events
+// Abstraction Coding for handling Add Button Clicking
 function handleButtonClick(buttonId, operation) {
     document.getElementById(buttonId).addEventListener("click", operation);
 }
 
-// Increment operation
 function incrementCounter() {
-    let currentValue = parseInt(document.getElementById("placeholder").value);
+    let displayElement = document.getElementById("counter-display");
+    let currentValue = parseInt(displayElement.textContent);
     currentValue++;
-    document.getElementById("placeholder").value = currentValue;
+    displayElement.textContent = currentValue; 
 }
 
-// Binding increment operation to Add button
-handleButtonClick("addButton", incrementCounter);
+
+handleButtonClick("add-btn", incrementCounter);
