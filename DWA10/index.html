@@ -55,22 +55,13 @@
         <sl-button slot="footer" variant="primary" onclick="document.getElementById('max-count-dialog').hide()">OK</sl-button>
     </sl-dialog>
 
+      <!-- Shoelace Dialog for Maximum Count Reached -->
+      <sl-dialog id="min-count-dialog" label="Minimum Count Reached" class="dialog-min-count">
+        <p>You have reached the maximum Subtract Amount.</p>
+        <sl-button slot="footer" variant="primary" onclick="document.getElementById('min-count-dialog').hide()">OK</sl-button>
+    </sl-dialog>
+
     <footer class="footer">CodeSpace IDA9 Submission <a class="footer__link" href="https://www.codespace.co.za/">Code Space</a>. Challenge DWA 9</footer>
 
-    <script>
-        // Example JavaScript to open the dialog when a certain condition is met
-        function checkAndShowMaxCountDialog() {
-            const currentValue = parseInt(document.getElementById('counter-display').textContent);
-            if (currentValue >= 15) {
-                document.getElementById('max-count-dialog').show();
-            }
-        }
-
-        document.getElementById('add-btn').addEventListener('click', function() {
-            // Your existing logic to increment the counter
-            // Then, check if we need to show the dialog
-            checkAndShowMaxCountDialog();
-        });
-    </script>
 </body>
 </html>
