@@ -1,12 +1,13 @@
-// scripts.js
-import store from './store.js';
-import { add, subtract, reset } from './actions.js';
+import { addTally, subtractTally, resetTally } from "./actions.js";
+import { getState, dispatch, subscribe } from "./stores.js";
 
-store.subscribe(() => {                                 // Subscribe to the store to log the state changes
-  console.log('State updated:', store.getState());
-});
 
-store.dispatch(add());                                  //call Actions
-store.dispatch(add());
-store.dispatch(subtract());
-store.dispatch(reset());
+subscribe((_, next) => console.log(next))
+
+dispatch(getState()) // 0
+dispatch(addTally()) // 1
+dispatch(addTally()) // 2
+dispatch(subtractTally()) // 1
+dispatch(resetTally()) // 0
+
+

@@ -1,34 +1,51 @@
-/**
- * Action Types
- */
-export const ADD = 'ADD';                 //Action for incrementing the counter
-export const SUBTRACT = 'SUBTRACT';       // Action for decrementing the counter
-export const RESET = 'RESET';             // Action for resetting the counter
+import { Tally } from "./stores.js";
 
 /**
- * Action Creators
+ * @typedef {object} AddNumber
+ * @prop {'ADD_NUMBER'} type
+ * @prop {Tally} tally
+ */
+
+
+/**
+ * @typedef {object} SubtractNumber
+ * @prop {'SUBTRACT_NUMBER'} type
+ * @prop {Tally} tally
  */
 
 /**
- * Create an action to add to the counter.
- * @returns {Object} Action object to add to the counter.
+ * @typedef {object} ResetTally
+ * @prop {'RESET_TALLY'} type
+ * @prop {Tally} tally
  */
-export function add() {
-  return { type: ADD };
+
+/**
+ * @typedef {AddNumber | SubtractNumber} Action
+ */
+export const Action = {}
+
+
+/**
+ * @returns {AddNumber}
+ */
+export const addTally = () => {
+   
+    return { type: 'ADD_NUMBER' }
 }
 
 /**
- * Create an action to subtract from the counter.
- * @returns {Object} Action object to subtract from the counter.
+ * @returns {SubtractNumber}
  */
-export function subtract() {
-  return { type: SUBTRACT };
+export const subtractTally = () => {
+   
+    return { type: 'SUBTRACT_NUMBER' }
 }
 
 /**
- * Create an action to reset the counter.
- * @returns {Object} Action object to reset the counter.
+ * @returns {ResetTally}
  */
-export function reset() {
-  return { type: RESET };
-}
+export const resetTally = () => {
+     
+     return { type: 'RESET_TALLY' }
+ }
+
